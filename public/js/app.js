@@ -5270,12 +5270,19 @@ __webpack_require__.r(__webpack_exports__);
   props: ['initialCategories'],
   data: function data() {
     return {
-      categories: _.cloneDeep(this.initialCategories)
+      categories: _.cloneDeep(this.initialCategories),
+      feedback: ''
     };
   },
   methods: {
     removeCategory: function removeCategory(index) {
       if (confirm('Are you Sure')) {
+        var id = this.categories[index].id;
+
+        if (id > 0) {
+          axios["delete"]('/api/categories/' + id);
+        }
+
         this.categories.splice(index, 1);
       }
     },
@@ -5292,6 +5299,18 @@ __webpack_require__.r(__webpack_exports__);
         window.scrollTo(0, document.body.scrollHeight);
 
         _this.$refs[''][0].focus();
+      });
+    },
+    saveCategories: function saveCategories() {
+      var _this2 = this;
+
+      axios.post('/api/categories/upsert', {
+        categories: this.categories
+      }).then(function (res) {
+        if (res.data.success) {
+          _this2.feedback = 'Changes Saved.';
+          _this2.categories = res.data.categories;
+        }
       });
     }
   }
@@ -5315,7 +5334,14 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("form", [_c("a", {
+  return _c("form", {
+    on: {
+      submit: function submit($event) {
+        $event.preventDefault();
+        return _vm.saveCategories.apply(null, arguments);
+      }
+    }
+  }, [_c("a", {
     staticClass: "add",
     on: {
       click: _vm.addCategory
@@ -5400,7 +5426,11 @@ var render = function render() {
         }
       }
     })]), _vm._v(" "), _c("hr")]);
-  })], 2);
+  }), _vm._v(" "), _c("button", {
+    attrs: {
+      type: "submit"
+    }
+  }, [_vm._v("Save")]), _vm._v(" "), _c("div", [_vm._v(_vm._s(_vm.feedback))])], 2);
 };
 
 var staticRenderFns = [];
