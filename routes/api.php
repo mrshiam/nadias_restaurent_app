@@ -18,4 +18,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/categories/upsert', [CategoryController::class, 'upsert']);
 Route::delete('/categories/{category}', [CategoryController::class, 'destroy']);
-Route::post('/menu-editor/add', [MenuItemController::class, 'store']);
+Route::post('/menu-items/add', [MenuItemController::class, 'store']);
+Route::post('/add-image', function(Request $request){
+    $file = $request->file('file');
+    $dir = 'public/images';
+    $path = $file->store($dir);
+    return str_replace("$dir/", '', $path);
+});
+
+Route::get('/categories/{category}/items', [CategoryController::class, 'items']);

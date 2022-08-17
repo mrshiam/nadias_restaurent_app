@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\MenuItem;
 use Illuminate\Http\Request;
 
+
 class MenuItemController extends Controller
 {
     /**
@@ -41,7 +42,7 @@ class MenuItemController extends Controller
 
         $request->validate([
             'name' => 'required|max:128',
-            'description' => 'required|512',
+            'description' => 'required|max:512',
             'price' => 'required|numeric',
             'category_id' => 'required|numeric',
             'image' => 'required'
