@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\MenuItemController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +18,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/categories/upsert', [CategoryController::class, 'upsert']);
 Route::delete('/categories/{category}', [CategoryController::class, 'destroy']);
+Route::post('/menu-editor/add', [MenuItemController::class, 'store']);

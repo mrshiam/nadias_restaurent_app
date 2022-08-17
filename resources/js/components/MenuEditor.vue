@@ -14,6 +14,8 @@
     export default {
         props: ['categories'],  
         router: new VueRouter({
+            mode: 'history',
+            base: 'menu-editor',
             routes: [
                 {
                     path: '/categories',
@@ -28,6 +30,10 @@
                     path: '/add-item',
                     name: 'add-item',
                     component: MenuItem
+                },
+                {
+                    path: '*',
+                    redirect: '/',
                 }
             ]
         })

@@ -22,4 +22,6 @@ Auth::routes();
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/categories', [CategoryController::class, 'index']);
-Route::get('/menu-editor', [AdminController::class, 'menu'])->middleware('can:edit-menu');
+Route::get('/menu-editor/{any?}', [AdminController::class, 'menu'])
+->middleware('can:edit-menu')
+->where('any', '.*');
