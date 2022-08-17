@@ -12,6 +12,6 @@ class Category extends Model
     protected $guarded = [];
 
     public function menuItems(){
-        return $this->hasMany('App\MenuItem');
+        return $this->hasMany('App\Models\MenuItem');
     }
 }
