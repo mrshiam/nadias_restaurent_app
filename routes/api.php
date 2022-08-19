@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MenuItemController;
+use App\Models\MenuItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +20,10 @@ use Illuminate\Support\Facades\Route;
 Route::post('/categories/upsert', [CategoryController::class, 'upsert']);
 Route::delete('/categories/{category}', [CategoryController::class, 'destroy']);
 Route::post('/menu-items/add', [MenuItemController::class, 'store']);
+Route::get('/menu-items/{menuItem}', function(MenuItem $menuItem){
+    return $menuItem;
+});
+Route::post('/menu-items/{menuItem}', [MenuItemController::class, 'update']);
 Route::post('/add-image', function(Request $request){
     $file = $request->file('file');
     $dir = 'public/images';
