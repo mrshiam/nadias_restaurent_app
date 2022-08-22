@@ -27,4 +27,14 @@ class HomeController extends Controller
         $categories = Category::orderBy('display_order')->get();
         return view('home',['categories' => $categories]);
     }
+    
+    public function menu()
+    {
+        $categories = Category::with('menuItems')
+                        ->orderBy('display_order')
+                        ->get();
+        return view('menu', [
+            'categories' => $categories
+        ]);
+    }
 }

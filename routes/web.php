@@ -25,3 +25,4 @@ Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/menu-editor/{any?}', [AdminController::class, 'menu'])
 ->middleware('can:edit-menu')
 ->where('any', '.*');
+Route::get('/menu', [HomeController::class, 'menu']);  

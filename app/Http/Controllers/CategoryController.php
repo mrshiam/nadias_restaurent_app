@@ -14,14 +14,14 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $this->authorize('manage', 'App\Category');
+        $this->authorize('manage', 'App\Models\Category');
         $categories = Category::orderBy('display_order')->get();
         return view('admin.categories.index',['categories' => $categories]);
     }
 
     public function upsert(Request $request)
     {
-        $this->authorize('manage', 'App\Category');
+        $this->authorize('manage', 'App\Models\Category');
         $categories = $request->post('categories');
         foreach ($categories as $cat){
             if($cat['id']){
